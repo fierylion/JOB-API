@@ -13,7 +13,7 @@ const login =async (req, res)=>{
     }
 
     const user = await User.findOne({email});
-    console.log(user)
+    
     if(!user) throw new UnauthenticatedError('Provided Email is doesnt exist');
     const isMatch = await user.verifyPassword(password);
     
