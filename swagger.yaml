@@ -1,0 +1,258 @@
+openapi: 3.0.0
+info:
+  title: JOB_API_PROJECT
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://job-api-01.onrender.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: john
+                  email: john@gmail.com
+                  password: john1234
+            example:
+              name: john
+              email: john@gmail.com
+              password: john1234
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  email: john@gmail.com
+                  password: john1234
+            example:
+              email: john@gmail.com
+              password: john1234
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    get:
+      tags:
+      - Job
+      summary: Get all Jobs
+      operationId: GetallJobs
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      tags:
+      - Job
+      summary: Post a Job
+      operationId: PostaJob
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PostaJobRequest'
+              - example:
+                  company: Google
+                  position: Software Engineer
+            example:
+              company: Google
+              position: Software Engineer
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /jobs/{jobId}:
+    get:
+      tags:
+      - Job
+      summary: Get a Job
+      operationId: GetaJob
+      parameters:
+        - in: path
+          name: jobId
+          schema:
+            type: string
+          required: true
+          description: Job ID of the specific job to get
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Job
+      summary: Delete a Job
+      operationId: DeleteaJob
+      parameters:
+        - in: path
+          name: jobId
+          schema:
+            type: string
+          required: true
+          description: Job ID of the job to delete
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      tags:
+      - Job
+      summary: Update a Job
+      operationId: UpdateaJob
+      parameters:
+        - in: path
+          name: jobId
+          schema:
+            type: string
+          required: true
+          description: Job ID of the job to update
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateaJobRequest'
+              - example:
+                  company: Google
+                  position: manager
+                  status: interview
+            example:
+              company: Google
+              position: manager
+              status: interview
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: john
+        email: john@gmail.com
+        password: john1234
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: john@gmail.com
+        password: john1234
+    PostaJobRequest:
+      title: PostaJobRequest
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Google
+        position: Software Engineer
+    UpdateaJobRequest:
+      title: UpdateaJobRequest
+      required:
+      - company
+      - position
+      - status
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        status:
+          type: string
+      example:
+        company: Google
+        position: manager
+        status: interview
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Misc
+  description: ''
+- name: auth
+  description: ''
+- name: Job
+  description: ''
