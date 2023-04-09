@@ -16,6 +16,7 @@ const rateLimiter = require('express-rate-limit')
 const swaggerUI = require('swagger-ui-express')
 const YAML = require('yamljs')
 const swaggerDocument = YAML.load('./swagger.yaml');
+const djangoSwaggerDocument = YAML.load('./django-yaml/swagger.yaml')
 
 
 // error handler
@@ -48,6 +49,9 @@ app.get('/', (req, res) => {
 
 //Project documentation
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+
+//django fallback docs
+app.use('/api/docs2', swaggerUI.serve, swaggerUI.setup(djangoSwaggerDocument))
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/jobs',validateTokenMiddleware, jobRouter)
