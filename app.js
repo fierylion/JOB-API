@@ -46,12 +46,12 @@ app.use(xss())
 app.get('/', (req, res) => {
   res.send('Welcome to Job API application!!!!!. <br> <br><a href="/api-docs" target="_blank"> <h1>Read the Docs</h1></a> ');
 });
-
+//django fallback docs
+app.use('/api/dawafasta/documentation', swaggerUI.serve, swaggerUI.setup(djangoSwaggerDocument))
 //Project documentation
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
-//django fallback docs
-app.use('/api/docs2', swaggerUI.serve, swaggerUI.setup(djangoSwaggerDocument))
+
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/jobs',validateTokenMiddleware, jobRouter)
