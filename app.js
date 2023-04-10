@@ -16,8 +16,6 @@ const rateLimiter = require('express-rate-limit')
 const swaggerUI = require('swagger-ui-express')
 const YAML = require('yamljs')
 const swaggerDocument = YAML.load('./swagger.yaml');
-const djangoSwaggerDocument = YAML.load('./django-yaml/swagger.yaml')
-
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
@@ -44,10 +42,11 @@ app.use(xss())
 
 // routes
 app.get('/', (req, res) => {
-  res.send('Welcome to Job API application!!!!!. <br> <br><a href="/api-docs" target="_blank"> <h1>Read the Docs</h1></a> ');
+  res.send(
+    '<h1>Welcome to Job API application!!!!!. </h1><br><br><a href="/api-docs" target="_blank"> <h1>Read the Docs</h1></a><br><br><a href="https://github.com/fierylion/JOB-API" target="_blank"> <h1>Project Github Repo</h1></a> '
+  )
 });
-//django fallback docs
-app.use('/api/dawafasta/documentation', swaggerUI.serve, swaggerUI.setup(djangoSwaggerDocument))
+
 //Project documentation
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
